@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 30em) {
+  .container {
+    width: 500px;
+  }
+}
+
+/*
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  .container {
+    width: 500px;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .container {
+    width: 500px;
+  }
+}
+*/

@@ -1,0 +1,45 @@
+<!doctype html>
+    <html lang="en" dir="ltr">
+    <head>
+    <title>Earthball</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Static sites as simple and boring as ugly little mushrooms that aren't even edible.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link async rel="stylesheet" href="/assets/tachyons.css">
+    <link async rel="stylesheet" href="/assets/highlight.css">
+    <link async rel="stylesheet" href="/assets/style.css">
+    </head>
+    <body class="sans-serif">
+      
+    <header class="dt container border-box lh-solid mt3 mb5">
+        <h1 class="dtc w-50 ma0 v-mid">Earthball</h1>
+        <ul class="dtc list pl0 w-50 v-mid ma0 tr">
+          <li class="dib"><a href="/">Home</a></li>
+          <li class="dib"><a href="/about">About</a></li>
+          <li class="dib"><a href="/getting-started">Getting started</a></li>
+        </ul>
+    </header>
+  
+      <main>
+        
+    <div class="container">
+      <h1>Getting started with Earthball</h1>
+      <p>Create a new Earthball site with the <code>earthball new</code> command.</p>
+<p>Earthball depends on recent node versions (it's developed with node 15), so first make sure you've got node installed.</p>
+<p>You might use <a href="https://github.com/nvm-sh/nvm">nvm</a> to install multiple node versions.</p>
+<p>After you've got node installed, create a directory for your new site:</p>
+<pre><code class="hljs language-shell">mkdir cool-new-site</code></pre>
+<p>And move into that directory:</p>
+<pre><code class="hljs language-shell">cd cool-new-site</code></pre>
+<p>Next run <code>npm init</code> and install earthball with npm:</p>
+<pre><code class="hljs language-shell">npm init
+npm install earthball --dev</code></pre>
+<p>Finally, create the site with <code>earthball new</code>, which takes <code>title</code> and <code>description</code> arguments:</p>
+<pre><code class="hljs language-shell">earthball new --title "cool site" --description "cool earthball site"</code></pre>
+
+    </div>
+  
+      </main>
+    </body>
+    </html>
+  
