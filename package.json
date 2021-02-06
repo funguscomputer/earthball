@@ -1,6 +1,6 @@
 {
   "name": "earthball",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Static sites as simple and boring as ugly little mushrooms that aren't even edible.",
   "main": "index.js",
   "type": "module",
