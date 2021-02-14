@@ -5,6 +5,7 @@ import picomatch from 'picomatch'
 import pipe from 'p-pipe'
 import csvToJson from 'csvtojson'
 import lunr from 'lunr'
+import { Feed } from 'feed'
 import createDebug from 'debug'
 
 import DirectoryWatcher from './lib/directory-watcher.js'
@@ -48,7 +49,7 @@ export class Earthball {
     this.rawCollections = {}
 
     this.data = {
-      site: config.site,
+      site: {},
       collections: {}
     }
   }
@@ -159,6 +160,7 @@ export class Earthball {
       afterInit: async () => {
         await this.transformCollections()
         await this.writeIndexes()
+        await this.writeFeeds()
         await this.writeCollections()
       },
       onChange: async ({ filePath, parsedPath, stats }) => {
@@ -175,11 +177,13 @@ export class Earthball {
           await this.writeCollectionFile(transformedFile)
           await this.transformCollections()
           await this.writeIndexes()
+          await this.writeFeeds()
         }
       },
       onDestroy: async ({ filePath, stats, parsedPath }) => {
         await this.removeFile({ filePath, stats, parsedPath })
         await this.writeIndexes()
+        await this.writeFeeds()
       }
     })
 
@@ -279,11 +283,6 @@ export class Earthball {
       metadata: { stats },
       collection
     })
-
-    /*
-      TODO:
-      create/update feeds and search index as defined by config
-    */
 
     transformedFile.filePath = filePath
     transformedFile.parsedPath = parsedPath
@@ -435,7 +434,83 @@ export class Earthball {
     })
 
     const outputFilepath = path.join(this.config.outputDirectory, 'assets', 'search.json')
-    writers.json(outputFilepath, index)
+    await writers.json(outputFilepath, index)
+  }
+
+  async writeFeeds () {
+    const { href: jsonUrl } = new URL('/feeds/json', this.data.site.url)
+    const { href: atomUrl } = new URL('/feeds/atom', this.data.site.url)
+    const { href: faviconUrl } = new URL('/assets/favicon.ico', this.data.site.url)
+
+    const globalFeed = new Feed({
+      title: this.data.site.title,
+      description: this.data.site.description,
+      id: this.data.site.url,
+      link: this.data.site.url,
+      image: this.data.site.image,
+      favicon: faviconUrl,
+      copyright: "",
+      generator: "Earthball",
+      feedLinks: {
+        json: jsonUrl,
+        atom: atomUrl
+      }
+    })
+
+    const collectionFeeds = {}
+    let shouldWriteGlobalAtomFeed = null
+    let shouldWriteGlobalJsonFeed = null
+
+    for (const collectionName in this.data.collections) {
+      const collection = this.data.collections[collectionName]
+      const collectionConfig = this.config.collections.find((item) => {
+        return item.name === collectionName
+      })
+
+      const shouldCreateFeeds = collectionConfig.output.feeds
+
+      collectionFeeds[collectionName] = new Feed() // TODO: feed config per collection
+
+      if (shouldCreateFeeds.json) {
+        shouldWriteGlobalJsonFeed = true
+      }
+
+      if (shouldCreateFeeds.atom) {
+        shouldWriteGlobalAtomFeed = true
+
+        for (const itemFilePath in collection) {
+          const item = collection[itemFilePath]
+          const { href: url } = new URL(item.data.permalink, item.data.site.url)
+
+          globalFeed.addItem({
+            title: item.data.title,
+            id: url,
+            link: url,
+            // description: item.description,
+            content: item.file,
+            // author: [], // TODO: authors data
+            date: item.metadata.stats.birthtime, //TODO: more reliable timestamps
+            image: item.data.image
+          })
+        }
+      }
+
+      const feedsOutputFilePath = path.join(this.config.outputDirectory, 'feeds')
+
+      if (shouldWriteGlobalJsonFeed || shouldWriteGlobalAtomFeed) {
+        await mkdirp(feedsOutputFilePath)
+      }
+
+      if (shouldWriteGlobalJsonFeed) {
+        const globalFeedJsonOutputFilePath = path.join(this.config.outputDirectory, 'feeds', 'json')
+        await writers.text(globalFeedJsonOutputFilePath, globalFeed.json1())
+      }
+
+      if (shouldWriteGlobalAtomFeed) {
+        const globalFeedAtomOutputFilePath = path.join(this.config.outputDirectory, 'feeds', 'atom')
+        await writers.text(globalFeedAtomOutputFilePath, globalFeed.atom1())
+      }
+    }
   }
 
   createInputFilePath (filePath) {

@@ -9,7 +9,7 @@ const pages = {
     directory: '.',
     layout: 'page',
     fileType: 'html',
-    feeds: { rss: true, json: true },
+    feeds: { atom: true, json: false },
     index: { search: true }
   }
 }
@@ -25,7 +25,7 @@ const articles = {
     layout: 'article',
     directory: 'articles',
     fileType: 'html',
-    feeds: { rss: true, json: true },
+    feeds: { atom: true, json: true },
     index: { search: true }
   }
 }
