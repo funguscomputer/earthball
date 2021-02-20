@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://earthball.dev</id>
     <title>Earthball</title>
-    <updated>2021-02-14T02:14:03.055Z</updated>
+    <updated>2021-02-20T04:09:19.829Z</updated>
     <generator>Earthball</generator>
     <link rel="alternate" href="https://earthball.dev"/>
     <link rel="self" href="https://earthball.dev/feeds/atom"/>
@@ -14,6 +14,27 @@
         <link href="https://earthball.dev/about/"/>
         <updated>2021-01-08T23:12:17.303Z</updated>
         <content type="html"><![CDATA[<p>Earthball is a small, simple, static site generator. It doesn't do a whole lot. That's part of its charm.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Example]]></title>
+        <id>https://earthball.dev/cool-example</id>
+        <link href="https://earthball.dev/cool-example"/>
+        <updated>2021-01-08T23:12:17.342Z</updated>
+        <content type="html"><![CDATA[<p>This is a fun example.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Earthball]]></title>
+        <id>https://earthball.dev/</id>
+        <link href="https://earthball.dev/"/>
+        <updated>2021-01-08T23:12:17.356Z</updated>
+        <content type="html"><![CDATA[<h1>{{site.description}}</h1>
+<p><img src="/assets/earthball.jpg" alt="common earthball">
+<span class="f6 dark-gray db i">Photo by <a href="https://www.geograph.org.uk/profile/6699">ceridwen</a> shared under <a href="https://creativecommons.org/licenses/by-sa/2.0/">Creative Commons Attribution-Share Alike 2.0 License</a></span></p>
+<h2>Docs</h2>
+<p>The docs are currently very limited. This little fungus is just starting to fruit.</p>
+<p>Read out some <a href="/./getting-started">getting started instructions</a> and <a href="https://github.com/funguscomputer/earthball">check out the code on GitHub</a>.</p>
 ]]></content>
     </entry>
     <entry>
@@ -33,27 +54,6 @@
 npm install earthball --dev</code></pre>
 <p>Finally, create the site with <code>earthball new</code>, which takes <code>title</code> and <code>description</code> arguments:</p>
 <pre><code class="hljs language-shell">earthball new --title "cool site" --description "cool earthball site"</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Earthball]]></title>
-        <id>https://earthball.dev/</id>
-        <link href="https://earthball.dev/"/>
-        <updated>2021-01-08T23:12:17.356Z</updated>
-        <content type="html"><![CDATA[<h1>{{site.description}}</h1>
-<p><img src="/assets/earthball.jpg" alt="common earthball">
-<span class="f6 dark-gray db i">Photo by <a href="https://www.geograph.org.uk/profile/6699">ceridwen</a> shared under <a href="https://creativecommons.org/licenses/by-sa/2.0/">Creative Commons Attribution-Share Alike 2.0 License</a></span></p>
-<h2>Docs</h2>
-<p>The docs are currently very limited. This little fungus is just starting to fruit.</p>
-<p>Read out some <a href="/./getting-started">getting started instructions</a> and <a href="https://github.com/funguscomputer/earthball">check out the code on GitHub</a>.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Example]]></title>
-        <id>https://earthball.dev/cool-example</id>
-        <link href="https://earthball.dev/cool-example"/>
-        <updated>2021-01-08T23:12:17.342Z</updated>
-        <content type="html"><![CDATA[<p>This is a fun example.</p>
 ]]></content>
     </entry>
 </feed>

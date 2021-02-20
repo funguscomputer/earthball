@@ -447,8 +447,8 @@ export class Earthball {
       description: this.data.site.description,
       id: this.data.site.url,
       link: this.data.site.url,
-      image: this.data.site.image,
-      favicon: faviconUrl,
+      // image: this.data.site.image,
+      // favicon: faviconUrl,
       copyright: "",
       generator: "Earthball",
       feedLinks: {
@@ -486,7 +486,7 @@ export class Earthball {
             title: item.data.title,
             id: url,
             link: url,
-            // description: item.description,
+            description: item.data.description || item.file.slice(0, 200) + ' ...',
             content: item.file,
             // author: [], // TODO: authors data
             date: item.metadata.stats.birthtime, //TODO: more reliable timestamps
